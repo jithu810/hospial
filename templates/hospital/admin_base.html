@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>LazyCoder || sumit</title>
+  <title>HMS</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,7 +101,7 @@
     }
 
     .menu {
-      background: #5bc995;
+      background: #5bc995; 
       height: 100vh;
       width: 240px;
       position: fixed;
@@ -270,6 +270,16 @@
       }
     }
 
+    footer{
+      width: 100%;
+      background-color: #4c4c4c;
+      height: 120px;
+      
+    }
+    footer p{
+      margin-left: -200px;
+    }
+  
   </style>
 
 </head>
@@ -283,11 +293,14 @@
       <img src="{% static "images/adminpropic.png" %}" />
       <br><br>
       <h6>Admin</h6>
-      <h2>{{request.user.first_name}}</h2>
+      <h2 style="text-transform: uppercase;">{{request.user.first_name}}</h2>
     </header>
-   
-      {% include 'hospital/new/sidebar.html' %}
-
+    <ul>
+      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/admin-dashboard"><span>Dashboard</span></a> </li>
+      <li tabindex="0" class="icon-customers"> <a style="color:white; text-decoration:none;" href="/admin-doctor"><span>Doctor</span></a></li>
+      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/admin-patient"><span>Patient</span></a></li>
+      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/admin-appointment"><span>Appointment</span></a></li>
+    </ul>
   </nav>
 
   <main>
@@ -295,7 +308,7 @@
 
     <!-- nav start -->
     <div class="bs-example">
-      <nav class="navbar navbar-expand-md  navbar-dark fixed-top" style="background:#337AB7;">
+      <nav class="navbar navbar-expand-sm  navbar-dark fixed-top" style="background:#4c4c4c;">
         <a href="/admin-dashboard" class="navbar-brand">HOSPITAL MANAGEMENT</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
@@ -303,7 +316,7 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
           <div class="navbar-nav" style=" margin-left: 90%;">
 
-            <a href="/logout" class="nav-item nav-link">Logout</a>
+            <a href="/logout" class="nav-item nav-link btn btn-outline-warning">Logout</a>
           </div>
         </div>
       </nav>
@@ -323,19 +336,18 @@
     <br><br><br><br>
     <footer>
       <p>
-        <a id="ftr" href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
-        <a id="ftr" href="https://api.whatsapp.com/send?phone=919572181024&text=Hello%20Sumit.%0d%0aHow%20are%20you%20%3f%0d%0aI%20came%20from%20your%20website.&source=&data=#" class="fa fa-whatsapp"></a>
-        <a id="ftr" href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
-        <a id="ftr" href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+        <a id="ftr" href="" class="fa fa-facebook"></a>
+        <a id="ftr" href="" class="fa fa-whatsapp"></a>
+        <a id="ftr" href="" class="fa fa-instagram"></a>
+        <a id="ftr" href="" class="fa fa-twitter"></a>
       </p>
 
       <br>
       <div class="container">
         <div class="row">
-          <div class="col-md-12 col-sm-12">
+          <div class="col-md-12 col-sm-12 a">
             <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
-              <p>Made in India <br>
-                Copyright &copy; 2020 LazyCoder </p>
+             
             </div>
           </div>
         </div>
@@ -343,11 +355,7 @@
     </footer>
 
   </main>
-  <!--
-  developed By : sumit kumar
-  facebook : fb.com/sumit.luv
-  youtube : youtube.com/lazycoders
-  -->
+
 
 </body>
 

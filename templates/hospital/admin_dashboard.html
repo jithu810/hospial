@@ -1,3 +1,4 @@
+
 {% extends 'hospital/admin_base.html' %}
 {% load static %}
 {% block content %}
@@ -5,12 +6,15 @@
 <br><br><br><br>
 <div class="container">
   <div class="row">
-    <div class="panel panel-primary col-md-5" style="margin-left:2%;">
-      <div class="panel-heading" style="text-align:center;">
+    <!-- <div class="panel panel-primary col-md-5" style="margin-left:2%;"> -->
+      <!-- <div class="panel-heading" style="text-align:center;">
         <h6 class="panel-title">Recent Doctors</h6>
-      </div>
-      <table class="table table-hover" id="dev-table">
+      </div> -->
+      <table class="table table-hover table-bordered table-dark col-5" id="dev-table">
         <thead>
+          <tr>
+            <th class="bg" colspan="5" style="text-align:center;">Recent Doctor</th>
+          </tr>
           <tr>
             <th>Name</th>
             <th>Department</th>
@@ -33,15 +37,20 @@
         </tr>
         {% endfor %}
       </table>
-    </div>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <!-- </div> -->
 
-    <div class="panel panel-primary col-md-5" style="margin-left:5%;">
-      <div class="panel-heading" style="text-align:center;">
+    <!-- <div class="panel panel-primary col-md-" style="margin-left:5%;"> -->
+      <!-- <div class="panel-heading" style="text-align:center;">
         <h6 class="panel-title">Recent Patient</h6>
-      </div>
-      <table class="table table-hover" id="dev-table">
+      </div> -->
+      <table class="table table-hover table-bordered table-dark col-5" id="dev-table">
         <thead>
           <tr>
+            <th class="bg" colspan="5" style="text-align:center;">Recent Patient</th>
+          </tr>
+          <tr>
+  
             <th>Name</th>
             <th>Symptoms</th>
             <th>Mobile</th>
@@ -65,14 +74,14 @@
         </tr>
         {% endfor %}
       </table>
-    </div>
+    <!-- </div> -->
   </div>
 </div>
+<style>
+  .bg{
+    background: #327D9C;  
+  }
+</style>
 
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
 
 {% endblock content %}

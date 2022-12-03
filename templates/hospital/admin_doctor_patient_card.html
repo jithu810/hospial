@@ -8,6 +8,7 @@
     .card {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       max-width: 300px;
+      max-height: 400px;
       margin: auto;
       text-align: center;
       font-family: arial;
@@ -31,10 +32,10 @@
       font-size: 18px;
     }
 
-    button:hover,
+    /* button:hover,
     a:hover {
       opacity: 0.7;
-    }
+    } */
 
     .grid-container {
       display: grid;
@@ -59,35 +60,31 @@
   <div class="grid-container">
     <div class="grid-item">
       <div class="card">
-        <img src="{% static "images/admin.png" %}" alt="John" style="width:100%">
+        <img class="card-img-top" src="{% static "images/admin1.jpg" %}" alt="John" style="width:100%">
         <p class="title">ADMIN</p>
-        <p><button><a href="/adminclick">View</a></button></p>
+        <p><button><a class="stretched-link" href="/adminclick">View</a></button></p>
       </div>
 
     </div>
 
     <div class="grid-item">
       <div class="card">
-        <img src="{% static "images/doctor.png" %}" alt="John" style="width:100%">
+        <img class="card-img-top" src="{% static "images/doctor1.jpg" %}" alt="John" style="width:100%">
         <p class="title">DOCTOR</p>
-        <p><button><a href="/doctorclick">View</a></button></p>
+        <p><button><a class="stretched-link" href="/doctorclick">View</a></button></p>
       </div>
     </div>
 
     <div class="grid-item">
       <div class="card">
-        <img src="{% static "images/patient.jpg" %}" alt="John" style="width:100%">
+        <img class="card-img-top" src="{% static "images/patient1.jpg" %}" alt="John" style="width:100%">
         <p class="title">PATIENT</p>
-        <p><button><a href="/patientclick">View</a></button></p>
+        <p><button><a class="stretched-link" href="/patientclick">View</a></button></p>
       </div>
     </div>
 
   </div>
-  <!--
-  developed By : sumit kumar
-  facebook : fb.com/sumit.luv
-  youtube : youtube.com/lazycoders
-  -->
+  
 
 </body>
 

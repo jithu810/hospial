@@ -567,7 +567,6 @@ def reject_appointment_view(request,pk):
 @user_passes_test(is_doctor)
 def doctor_dashboard_view(request):
     #for three cards
-    print(request.user.id)
     patientcount=models.Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id).count()
     appointmentcount=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).count()
     patientdischarged=models.PatientDischargeDetails.objects.all().distinct().filter(assignedDoctorName=request.user.first_name).count()
@@ -844,6 +843,3 @@ def contactus_view(request):
 
 
 
-#Developed By : sumit kumar
-#facebook : fb.com/sumit.luv
-#Youtube :youtube.com/lazycoders
