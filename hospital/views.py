@@ -8,6 +8,12 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
 from django.db.models import Q
+from blood import models as blood_models
+from donor import models as donor_models
+from donor import forms as donor_forms
+from django.contrib.auth.models import User
+from blood import forms as blood_forms
+
 
 # Create your views here.
 def home_view(request):
@@ -107,6 +113,8 @@ def is_doctor(user):
     return user.groups.filter(name='DOCTOR').exists()
 def is_patient(user):
     return user.groups.filter(name='PATIENT').exists()
+def is_donor(user):
+    return user.groups.filter(name='DONOR').exists()
 
 
 #---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
@@ -126,12 +134,197 @@ def afterlogin_view(request):
         else:
             return render(request,'hospital/patient_wait_for_approval.html')
 
+    elif is_donor(request.user):      
+        return redirect('donor/donor-dashboard')
 
 
 
 
 
 
+
+@login_required(login_url='adminlogin')
+def admin_dashboard_view2(request):
+    x=blood_models.Stock.objects.all()
+    print(x)
+    if len(x)==0:
+        blood1=blood_models.Stock()
+        blood1.bloodgroup="A+"
+        blood1.save()
+
+        blood2=blood_models.Stock()
+        blood2.bloodgroup="A-"
+        blood2.save()
+
+        blood3=blood_models.Stock()
+        blood3.bloodgroup="B+"
+        blood3.save()        
+
+        blood4=blood_models.Stock()
+        blood4.bloodgroup="B-"
+        blood4.save()
+
+        blood5=blood_models.Stock()
+        blood5.bloodgroup="AB+"
+        blood5.save()
+
+        blood6=blood_models.Stock()
+        blood6.bloodgroup="AB-"
+        blood6.save()
+
+        blood7=blood_models.Stock()
+        blood7.bloodgroup="O+"
+        blood7.save()
+
+        blood8=blood_models.Stock()
+        blood8.bloodgroup="O-"
+        blood8.save()
+    totalunit=blood_models.Stock.objects.aggregate(Sum('unit'))
+    dict={
+
+        'A1':blood_models.Stock.objects.get(bloodgroup="A+"),
+        'A2':blood_models.Stock.objects.get(bloodgroup="A-"),
+        'B1':blood_models.Stock.objects.get(bloodgroup="B+"),
+        'B2':blood_models.Stock.objects.get(bloodgroup="B-"),
+        'AB1':blood_models.Stock.objects.get(bloodgroup="AB+"),
+        'AB2':blood_models.Stock.objects.get(bloodgroup="AB-"),
+        'O1':blood_models.Stock.objects.get(bloodgroup="O+"),
+        'O2':blood_models.Stock.objects.get(bloodgroup="O-"),
+        'totaldonors':donor_models.Donor.objects.all().count(),
+        'totalbloodunit':totalunit['unit__sum'],
+        'totalrequest':blood_models.BloodRequest.objects.all().count(),
+        'totalapprovedrequest':blood_models.BloodRequest.objects.all().filter(status='Approved').count()
+    }
+    return render(request,'hospital/admin_dashboard2.html',context=dict)
+
+
+@login_required(login_url='adminlogin')
+def admin_donor_view(request):
+    donors=donor_models.Donor.objects.all()
+    return render(request,'hospital/admin_donor.html',{'donors':donors})
+
+
+@login_required(login_url='adminlogin')
+def update_donor_view(request,pk):
+    donor=donor_models.Donor.objects.get(id=pk)
+    user=donor_models.User.objects.get(id=donor.user_id)
+    userForm=donor_forms.DonorUserForm(instance=user)
+    donorForm=donor_forms.DonorForm(request.FILES,instance=donor)
+    mydict={'userForm':userForm,'donorForm':donorForm}
+    if request.method=='POST':
+        userForm=donor_forms.DonorUserForm(request.POST,instance=user)
+        donorForm=donor_forms.DonorForm(request.POST,request.FILES,instance=donor)
+        if userForm.is_valid() and donorForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            donor=donorForm.save(commit=False)
+            donor.user=user
+            donor.bloodgroup=donorForm.cleaned_data['bloodgroup']
+            donor.save()
+            return redirect('admin-donor')
+    return render(request,'hospital/admin_update_donor.html',context=mydict)
+
+
+@login_required(login_url='adminlogin')
+def delete_donor_view(request,pk):
+    donor=donor_models.Donor.objects.get(id=pk)
+    user=User.objects.get(id=donor.user_id)
+    user.delete()
+    donor.delete()
+    return HttpResponseRedirect('/admin-donor')
+
+login_required(login_url='adminlogin')
+def admin_donation_view(request):
+    donations=donor_models.BloodDonate.objects.all()
+    return render(request,'hospital/admin_donation.html',{'donations':donations})
+
+
+@login_required(login_url='adminlogin')
+def approve_donation_view(request,pk):
+    donation=donor_models.BloodDonate.objects.get(id=pk)
+    donation_blood_group=donation.bloodgroup
+    donation_blood_unit=donation.unit
+
+    stock=blood_models.Stock.objects.get(bloodgroup=donation_blood_group)
+    stock.unit=stock.unit+donation_blood_unit
+    stock.save()
+
+    donation.status='Approved'
+    donation.save()
+    return HttpResponseRedirect('/admin-donation')
+
+
+@login_required(login_url='adminlogin')
+def reject_donation_view(request,pk):
+    donation=donor_models.BloodDonate.objects.get(id=pk)
+    donation.status='Rejected'
+    donation.save()
+    return HttpResponseRedirect('/admin-donation')
+
+
+@login_required(login_url='adminlogin')
+def admin_request_view(request):
+    requests=blood_models.BloodRequest.objects.all().filter(status='Pending')
+    return render(request,'hospital/admin_request.html',{'requests':requests})
+
+
+
+@login_required(login_url='adminlogin')
+def admin_request_history_view(request):
+    requests=blood_models.BloodRequest.objects.all().exclude(status='Pending')
+    return render(request,'hospital/admin_request_history.html',{'requests':requests})
+
+
+@login_required(login_url='adminlogin')
+def update_approve_status_view(request,pk):
+    req=blood_models.BloodRequest.objects.get(id=pk)
+    message=None
+    bloodgroup=req.bloodgroup
+    unit=req.unit
+    stock=blood_models.Stock.objects.get(bloodgroup=bloodgroup)
+    if stock.unit > unit:
+        stock.unit=stock.unit-unit
+        stock.save()
+        req.status="Approved"
+        
+    else:
+        message="Stock Doest Not Have Enough Blood To Approve This Request, Only "+str(stock.unit)+" Unit Available"
+    req.save()
+
+    requests=blood_models.BloodRequest.objects.all().filter(status='Pending')
+    return render(request,'hospital/admin_request.html',{'requests':requests,'message':message})
+
+@login_required(login_url='adminlogin')
+def update_reject_status_view(request,pk):
+    req=blood_models.BloodRequest.objects.get(id=pk)
+    req.status="Rejected"
+    req.save()
+    return HttpResponseRedirect('/admin-request')
+
+
+@login_required(login_url='adminlogin')
+def admin_blood_view(request):
+    dict={
+        'bloodForm':blood_forms.BloodForm(),
+        'A1':blood_models.Stock.objects.get(bloodgroup="A+"),
+        'A2':blood_models.Stock.objects.get(bloodgroup="A-"),
+        'B1':blood_models.Stock.objects.get(bloodgroup="B+"),
+        'B2':blood_models.Stock.objects.get(bloodgroup="B-"),
+        'AB1':blood_models.Stock.objects.get(bloodgroup="AB+"),
+        'AB2':blood_models.Stock.objects.get(bloodgroup="AB-"),
+        'O1':blood_models.Stock.objects.get(bloodgroup="O+"),
+        'O2':blood_models.Stock.objects.get(bloodgroup="O-"),
+    }
+    if request.method=='POST':
+        bloodForm=blood_forms.BloodForm(request.POST)
+        if bloodForm.is_valid() :        
+            bloodgroup=bloodForm.cleaned_data['bloodgroup']
+            stock=blood_models.Stock.objects.get(bloodgroup=bloodgroup)
+            stock.unit=bloodForm.cleaned_data['unit']
+            stock.save()
+        return HttpResponseRedirect('admin-blood')
+    return render(request,'hospital/admin_blood.html',context=dict)
 
 #---------------------------------------------------------------------------------
 #------------------------ ADMIN RELATED VIEWS START ------------------------------

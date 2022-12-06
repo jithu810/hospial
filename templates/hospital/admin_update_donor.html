@@ -1,0 +1,148 @@
+{% extends 'hospital/admin_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      height: 80px;
+      background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+      color: #fff;
+      font-weight: bold;
+      line-height: 80px;
+    }
+
+    .form-content {
+      padding: 5%;
+      border: 1px solid #ced4da;
+      margin-bottom: 2%;
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #0062cc;
+      color: #fff;
+    }
+
+    .menu {
+      top: 50px;
+    }
+  </style>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<br><br>
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="name">First Name</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field userForm.first_name|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="name">Last Name</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field userForm.last_name|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="name">Username</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field userForm.username|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="name">Password</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field userForm.password|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+  
+
+
+    <div class="form-row">
+        <div class="name">Blood Group</div>
+        <div class="value">
+            <div class="input-group">
+                <div class="rs-select2 js-select-simple select--no-search">
+                    <select name="bloodgroup">
+                        <option disabled="disabled" selected="selected">Choose option</option>
+                        <option>O+</option>
+                        <option>O-</option>
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                    </select>
+                    <div class="select-dropdown"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="name">Address</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field donorForm.address|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="name">Mobile</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field donorForm.mobile|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="name">Profile Pic</div>
+        <div class="value">
+            <div class="input-group">
+                {% render_field donorForm.profile_pic|attr:'required:true'  class="input--style-5"  %}
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <button class="btn btn--radius-2 btn-danger" type="submit">Update</button>
+    </div>
+</form>
+
+{% endblock content %}
