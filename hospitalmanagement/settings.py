@@ -43,6 +43,7 @@ INSTALLED_APPS = [
         'widget_tweaks',
         'donor',
         'blood',
+        'crispy_forms'
       
 ]
 

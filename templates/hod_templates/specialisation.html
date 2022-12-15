@@ -1,0 +1,28 @@
+{% extends 'hod_templates/base_template.html'%} {% block page_title %}
+<h5>All patients</h5>
+
+{% endblock page_title %} {% block main_content %}
+<section class="content">
+
+
+    <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Doctor Name</th>
+            <th>Mobile</th>
+          </tr>
+        </thead>
+        {% for d in doctors %}
+        <tr>
+          <td>{{d.department}}</td>
+          <td> {{d.get_name}}</td>
+          <td>{{d.mobile}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+
+</section>
+
+{% endblock %}

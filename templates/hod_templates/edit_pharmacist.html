@@ -1,0 +1,66 @@
+{% extends 'hod_templates/base_template.html'%} {% load crispy_forms_tags %} {% block page_title %}
+{% load widget_tweaks %}
+<h5>Edit patient</h5>
+
+{% endblock page_title %} {% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit Pharmacist</h3>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container register-form">
+                          <div class="form">
+                            <div class="note">
+                              <p>Edit Pharmacist</p>
+                            </div>
+                            <div class="form-content">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field userForm.username class="form-control" placeholder="Username" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field PharmacistForm.address class="form-control" placeholder="Address" %}
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    {% render_field PharmacistForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field userForm.password class="form-control" placeholder="Password" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field PharmacistForm.mobile  class="form-control" placeholder="Mobile" %}
+                                  </div>
+
+                                </div>
+                              </div>
+                              <button type="submit" class="btnSubmit">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock main_content %}

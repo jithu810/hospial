@@ -1,0 +1,198 @@
+ {% extends 'hod_templates/base_template.html'%} {% load static %} {% block page_title %}
+<h4>Dashboard</h4> {% endblock page_title %} {% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <!-- <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <div class="card-body p-0 d-flex flex-fill illustration oyah">
+									<div class="row g-0 w-100">
+										<div class="col-md-6  col-sm-6">
+											<div class="illustration-text p-3 m-1">
+												<h4 class="illustration-text">Welcome Back, {{user.first_name}}!</h4>
+												<p class="mb-0">Pharmacy  Dashboard</p>
+											</div>
+										</div>
+										<div class="col-lg-5 col-md-6  col-sm-6  col-xs-2 align-self-end text-end ">
+											<img src="https://appstack.bootlab.io/img/illustrations/customer-support.png" alt="Customer Support" class="img-fluid illustration-img" height="30">
+										</div>
+									</div>
+								</div>
+          </div>
+        </div> -->
+
+
+
+        
+
+        <div class="col-lg-12 col-md-12 dash-icon">
+            <div class="row">
+                <div class="col-lg-3 col-md-6   col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{all_doctors}}</h3>
+                            <p>Total Doctor</p>
+                            <p>Approval Required : {{pendingdoctorcount}}</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas fa-wheelchair"></i>
+                        </div>
+                        <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+
+                <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{patientcount}}</h3>
+
+                            <p>Total Patients</p>
+                        
+                            <p>Wants to Admit : {{pendingpatientcount}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{patientcount}}</h3>
+
+                            <p>Total Appointment</p>
+                        
+                            <p>Approve Appointments :{{pendingappointmentcount}} </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+            <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{total_donations}}</h3>
+
+                            <p>Total Donations</p>
+                        
+                            <p>Approval needed :{{donation_approval}} </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{totalbloodunit}}</h3>
+
+                            <p>Total Blood Units</p>
+                        
+                           
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- ./col -->
+
+
+
+
+
+
+                <!-- ./col -->
+                <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{totalapprovedrequest}}</h3>
+                            <p>All Blood Requests</p>
+                            <p>Approval needed :{{requests_}} </p>
+                            
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+       
+
+
+           
+              
+
+
+
+            
+                <!-- ./col -->
+
+                <!-- ./col -->
+
+
+               
+
+               
+                <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{for_today}}</h3>
+
+                            <p> Patients Admitted Today</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-wheelchair "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+               
+                
+                <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{donorscount}}</h3>
+
+                            <p> Total Donors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-wheelchair "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</section>
+
+{% endblock main_content %}

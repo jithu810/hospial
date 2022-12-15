@@ -1,0 +1,98 @@
+{% extends 'hod_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<h5>Blood</h5>
+
+{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    
+        {% if messages %}
+        <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    <div class="row">
+        
+        <div class="col-md-12 px-3">
+                
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    <span>Blood Records</span>
+                   <div class="card-tools d-flex">
+                       
+              
+                
+
+            </div>
+
+                </div>
+                <table  class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                            <tr>
+
+
+
+
+                                    <th>No</th>
+                                    <th>Profile Picture</th>
+                                    <th>Patient Name</th>
+                                    <th>Age</th>
+                                    <th>Reason</th>
+                                    <th>Blood Group</th>
+                                    <th>Unit (in ml)</th>
+                                    <th>Request Date</th>
+                                    <th>status</th>
+
+
+                                    
+
+
+        
+                            </tr>
+                    </thead>
+                    <tbody>
+                            {% for t in requests %}
+                            <tr class="hov"> <td>{{t.id}}</td>
+                                <td> <img src="{% static t.profile_pic.url %}" class="" width="35" height="35" alt=""></td>
+        
+                                <td>{{t.patient_name}}</td>
+                                <td>{{t.patient_age}}</td>
+                                <td>{{t.reason}}</td>
+                                <td>{{t.bloodgroup}}</td>
+                                <td>{{t.unit}}</td>
+                                <td>{{t.date}}</td>
+                                <td>{{t.status}}</td>
+                               
+
+                            
+            
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

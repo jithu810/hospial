@@ -1,0 +1,75 @@
+{% extends 'hod_templates/base_template.html'%} {% load crispy_forms_tags %} {% block page_title %}
+{% load widget_tweaks %}
+
+<h5>Add patient</h5>
+
+{% endblock page_title %} {% block main_content %}
+<section class="content" style="">
+    <div class="container-fluid">
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Patient</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container register-form">
+                          <div class="form">
+                            <div class="note">
+                              <p>Admit Patient To Hospital</p>
+                            </div>
+                            <div class="form-content">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field userForm.username class="form-control" placeholder="Username" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field patientForm.address class="form-control" placeholder="Address" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field patientForm.symptoms class="form-control" placeholder="Symptoms" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field userForm.password class="form-control" placeholder="Password" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field patientForm.mobile  class="form-control" placeholder="Mobile" %}
+                                  </div>
+                                  <div class="form-group">
+                                    {% render_field patientForm.assignedDoctorId class="form-control" placeholder="Doctor" %}
+                                  </div>
+                                </div>
+                              </div>
+                              <button type="submit" class="btnSubmit">Admit</button>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </form>
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock main_content %}

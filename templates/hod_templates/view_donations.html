@@ -1,0 +1,96 @@
+{% extends 'hod_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<h5>Donations</h5>
+
+{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    
+        {% if messages %}
+        <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    <div class="row">
+        
+        <div class="col-md-12 px-3">
+                
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    <span>Donnaction Records</span>
+                   <div class="card-tools d-flex">
+                       
+              
+             
+            </div>
+
+                </div>
+                <table  class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                            <tr>
+
+
+                         
+
+
+                                    <th>No</th>
+                                    <th>Profile Picture</th>
+                                    <th>Donor Name</th>
+                                    <th>Disease</th>
+                                    <th>Age</th>
+                                    <th>Blood Group</th>
+                                    <th>Unit</th>
+                                    <th>Request Date</th>
+                                    <th>Status</th>
+                                     <th>Last Login</th>
+                                 
+
+
+        
+                            </tr>
+                    </thead>
+                    <tbody>
+                            {% for donation in donations %}
+                            <tr class="hov"> <td>{{donation.id}}</td>
+                                <td> <img src="{% static donation.profile_pic.url %}" class="" width="35" height="35" alt=""></td>
+        
+                                <td>{{donation.donor}}</td>
+                                <td>{{donation.disease}}</td>
+                                <td>{{donation.age}}</td>
+                                <td>{{donation.bloodgroup}}</td>
+                                <td>{{donation.unit}}</td>
+                                <td>{{donation.date}}</td>
+                                <td>{{donation.status}}</td>
+                                <td></td>
+
+                               
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'hospital/doctor_base.html' %}
+{% block content %}
+{%load static%}
+{% load crispy_forms_tags %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+
+<div class="container">
+
+    <div class="row pt">
+        <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                         <i class="fa fa-align-justify"></i> Patient Image
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <img src="{{patient.profile_pic.url}}" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <i class="fa fa-align-justify"></i> Patient's Information
+                </div>
+                <div class="card-body">
+                    <tbody>
+                        <tr>
+                                <td>Full Name: {{patient.get_name}}  {{patient.last_name}}</td>
+                                <br>
+                                
+                                <td>Email: {{ patient.email }}</td>
+                                <br>
+                                <td>Age: {{ patient.age }}</td>
+                                <br>
+                                <td>Symptoms: {{ patient.symptoms }}</td>
+                                <br>
+                                <td>Address: {{ patient.address }}</td>
+                                <br>
+                                <td>Tel: {{ patient.mobile }}</td>
+                                
+                        </tr>
+                    </tbody>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                     <i class="fa fa-align-justify"></i> Patient's Medical Info
+                </div>
+                <div class="card-body">
+                        <h6>Doctor:</h6>
+                        {% for a in prescription %}
+                        <h6>Description: {{a.description}}</h6>
+                        <h6>Prescription: {{a.prescribe}} </h6>
+                        <h6>Date: {{a.date_precribed}} </h6>
+                        {% endfor %}
+                   
+                </div>
+            </div>
+        </div>
+      
+        <!-- <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <i class="fa fa-align-justify"></i> Teachers Personal Info
+                </div>
+                <div class="card-body">
+    
+                        <h6>Role: patient</h6>
+                       
+                </div>
+            </div>
+        </div> -->
+    </div>
+    
+   
+</div>
+
+</div>
+
+
+{% endblock content %}

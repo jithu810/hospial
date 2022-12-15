@@ -1,0 +1,86 @@
+{% extends 'hod_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<h5>Appointment</h5>
+
+{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    
+        {% if messages %}
+        <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    <div class="row">
+        
+        <div class="col-md-12 px-3">
+                
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    <span>Appointment Records</span>
+                   <div class="card-tools d-flex">
+                       
+              
+
+            </div>
+
+                </div>
+                <table  class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                            <tr>
+                                    <th>No</th>
+                                    <th>Doctor Name</th>
+                                    <th>Patient Name</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+
+                                     <th class="text-center">Action</th>
+                                    
+        
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in appointments %}
+                            <tr class="hov"> <td>{{forloop.counter}}</td>
+                               
+                                <td> {{a.doctorName}}</td>
+                                <td>{{a.patientName}}</td>
+                                <td>{{a.description}}</td>
+                                <td>{{a.appointmentDate}}</td>
+
+                                <td></td>
+
+                                <td><a href="{% url 'approve-appointment' a.id  %}" class="btn btn-sm btn-success">Approve</a>                     
+                                    <a href="{% url 'reject-appointment' a.id  %}" class="btn btn-sm btn-danger">Reject</a></<a>
+                                  
+            
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

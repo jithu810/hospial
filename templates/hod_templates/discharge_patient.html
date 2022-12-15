@@ -1,0 +1,72 @@
+{% extends 'hod_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<h5>All patients</h5>
+
+{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    
+        {% if messages %}
+        <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    <div class="row">
+        
+        <div class="col-md-12 px-3">
+                
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    <span>Patiets Records</span>
+                   <div class="card-tools d-flex">
+                       
+              
+                <a class="btn btn-sm btn-info mr-2" href="/admin-add-patient" role="button">+ Add Patient</a> 
+
+            </div>
+
+                </div>
+                <table  class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Symptoms</th>
+                          <th>Mobile</th>
+                          <th>Discharge</th>
+                        </tr>
+                      </thead>
+                      {% for p in patients %}
+                      <tr>
+                        <td> {{p.get_name}}</td>
+                        <td>{{p.symptoms}}</td>
+                        <td>{{p.mobile}}</td>
+                        <td><a class="btn btn-primary btn-xs" href="{% url 'discharge-patient' p.id  %}"><span class="glyphicon glyphicon-log-out"></span></a></td>
+                      </tr>
+                      {% endfor %}
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

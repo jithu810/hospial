@@ -48,6 +48,9 @@
 
         </tr>
       </thead>
+     
+
+
       {% for p in patients %}
       <tr>
         <td> {{p.get_name}}</td>
@@ -55,8 +58,13 @@
         <td>{{p.symptoms}}</td>
         <td>{{p.mobile}}</td>
         <td>{{p.address}}</td>
+        <td><a href="{% url 'doctor_prescribe_drug' p.id %}" class="btn btn-sm btn-warning">Prescribe</a>
+
+          <a href="{% url 'patient_record_doctor' p.id %}" class="btn btn-sm btn-success">View</a></td>
       </tr>
       {% endfor %}
+
+     
     </table>
   </div>
   {%else%}

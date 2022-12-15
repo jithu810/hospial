@@ -27,6 +27,6 @@ class BloodDonate(models.Model):
     age=models.PositiveIntegerField()
     bloodgroup=models.CharField(max_length=10)
     unit=models.PositiveIntegerField(default=0)
-    status=models.CharField(max_length=20,default="Pending")
+    status=models.CharField(max_length=20,default="Pending")  
     date=models.DateField(auto_now=True)
     
